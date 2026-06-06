@@ -1,0 +1,49 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: demo-app-alerts
+    folder: Observability Lab
+    interval: 15s
+    rules:
+      - uid: high-error-rate
+        title: "CRITICAL – High Error Rate"
+        condition: C
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: "prometheus"
+            model:
+              expr: "rate(app_errors_total[1m]) * 60"
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+          - refId: C
+            relativeTimeRange:
+              from: 60
+              to: 0
+            datasourceUid: "__expr__"
+            model:
+              conditions:
+                - evaluator:
+                    params: [5]
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params: [A]
+                  reducer:
+                    type: last
+                  type: query
+              refId: C
+              type: classic_conditions
+        noDataState: NoData
+        execErrState: Alerting
+        for: 0s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Error rate exceeds 5/min"
+          description: "The application error rate has breached the critical threshold."

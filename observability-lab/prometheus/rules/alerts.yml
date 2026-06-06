@@ -1,0 +1,37 @@
+groups:
+  - name: demo_app_alerts
+    interval: 15s
+    rules:
+      # ── CRITICAL: error rate > 5 per minute ──────────────────────────────
+      - alert: HighErrorRate
+        expr: rate(app_errors_total[1m]) * 60 > 5
+        for: 0m          # fire immediately once threshold crossed
+        labels:
+          severity: critical
+        annotations:
+          summary: "CRITICAL – High error rate on {{ $labels.endpoint }}"
+          description: >
+            Error rate is {{ $value | printf "%.2f" }} errors/min on
+            endpoint {{ $labels.endpoint }} (threshold: 5/min).
+
+      # ── WARNING: error rate > 2 per minute ───────────────────────────────
+      - alert: ElevatedErrorRate
+        expr: rate(app_errors_total[1m]) * 60 > 2
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "WARNING – Elevated error rate on {{ $labels.endpoint }}"
+          description: >
+            Error rate is {{ $value | printf "%.2f" }} errors/min on
+            endpoint {{ $labels.endpoint }}.
+
+      # ── INFO: app is down ─────────────────────────────────────────────────
+      - alert: AppDown
+        expr: up{job="demo-app"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "CRITICAL – demo-app is unreachable"
+          description: "Prometheus cannot scrape demo-app:5000."

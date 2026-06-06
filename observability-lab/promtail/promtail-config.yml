@@ -1,0 +1,43 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  # ── Docker container logs via the Docker socket ──────────────────────────
+  - job_name: docker-containers
+    docker_sd_configs:
+      - host: unix:///var/run/docker.sock
+        refresh_interval: 5s
+    relabel_configs:
+      # Use container name as the stream label
+      - source_labels: [__meta_docker_container_name]
+        target_label: container
+        regex: "/(.*)"
+      # Preserve Docker Compose service label
+      - source_labels: [__meta_docker_container_label_com_docker_compose_service]
+        target_label: service
+      # Keep only demo-app logs for the lab (remove filter to capture all)
+      - source_labels: [service]
+        action: keep
+        regex: "demo-app"
+    pipeline_stages:
+      # Parse the JSON log line emitted by the app
+      - json:
+          expressions:
+            level:   level
+            message: message
+            ts:      timestamp
+      # Promote parsed fields to stream labels
+      - labels:
+          level:   ""
+          service: ""
+      # Use the app's own timestamp for the log entry
+      - timestamp:
+          source: ts
+          format: "2006-01-02T15:04:05.999999"
