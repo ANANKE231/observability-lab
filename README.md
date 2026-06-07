@@ -127,19 +127,24 @@ After ~30 seconds, go to **Grafana → Alerting → Alert rules** — the `HighE
 
 The dashboard auto-provisions on startup showing total requests, error counts, request rate, and the CRITICAL alert threshold as a red dashed line.
 
-![Grafana Dashboard](https://private-user-images.githubusercontent.com/181968734/603969178-cd5a3ef7-589f-49ad-aeed-ef77cd57a7df.jpg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODA3NjcwNjksIm5iZiI6MTc4MDc2Njc2OSwicGF0aCI6Ii8xODE5Njg3MzQvNjAzOTY5MTc4LWNkNWEzZWY3LTU4OWYtNDlhZC1hZWVkLWVmNzdjZDU3YTdkZi5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNjA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDYwNlQxNzI2MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kM2E1NWRkOWFhZjNmY2JjNmJmMDA5OWEyZWJiNmZhNTg0NWYxMmRhZDY5NTljOGUxZDUyOTcwZWE0ZjBmNjBhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZqcGVnIn0.JiRKG3dpk_aEEpbjPMExr0yamwM7UUO93EVE_o6mzGY)
+<img width="1920" height="1080" alt="pirveli" src="https://github.com/user-attachments/assets/7eaac7e6-e4fb-47d5-85a1-9d7d248a93af" />
+
 
 ### 2. Alerting Tab — CRITICAL Alert Firing
 
 After hitting `/error-flood`, the `HighErrorRate` rule moves to **Firing** state within 30 seconds.
 
-![Alert Firing](https://private-user-images.githubusercontent.com/181968734/603456173-c88d1df3-1b45-43a5-93e2-8bed84413adc.jpg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODA3NjcwNjksIm5iZiI6MTc4MDc2Njc2OSwicGF0aCI6Ii8xODE5Njg3MzQvNjAzNDU2MTczLWM4OGQxZGYzLTFiNDUtNDNhNS05M2UyLThiZWQ4NDQxM2FkYy5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNjA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDYwNlQxNzI2MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NzkxYmM4YTk2YWE5ZTlkZTRkMDY5MzcwMTQ4YjAxYjk0MjNiNjFiZTNhNjhhZTc5YTMxYzEwM2VjZjA0NzM5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZqcGVnIn0.Xas6636BwB91SJSQhcXEMIgYWmOernsx97gRs1x52Dw)
+<img width="1456" height="819" alt="meore" src="https://github.com/user-attachments/assets/d2ce6330-001a-4329-bd20-90975c651f06" />
+
 
 ### 3. Log Analysis — JSON Logs in Grafana (Loki)
 
 Grafana Explore with Loki datasource showing structured JSON logs with level, message, path, method, status_code, and duration_ms fields.
 
-![Loki Logs](https://private-user-images.githubusercontent.com/181968734/603469599-375b32d8-1885-45ca-a736-726900950a98.jpg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODA3NjcwNjksIm5iZiI6MTc4MDc2Njc2OSwicGF0aCI6Ii8xODE5Njg3MzQvNjAzNDY5NTk5LTM3NWIzMmQ4LTE4ODUtNDVjYS1hNzM2LTcyNjkwMDk1MGE5OC5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNjA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDYwNlQxNzI2MDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04YzY1YTJkODdhNThjMDdhNjQzMDQwMGRkYWU3MDgyMTAzNDRhZjU3Y2M5ZDg0MWY5YTI0NzdjM2M0ZGFlMmM2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZqcGVnIn0.vyqqHTrADHMBWQEvAGJOj8vU7s2HvGFKlJ0usrhEzf4)
+<img width="1456" height="819" alt="mesame" src="https://github.com/user-attachments/assets/5447ce4c-8f0b-4821-bf33-75eeeef10256" />
+
+<img width="1456" height="819" alt="meotxe" src="https://github.com/user-attachments/assets/e939f838-da30-42d6-a767-05d512d62956" />
+
 
 ---
 
